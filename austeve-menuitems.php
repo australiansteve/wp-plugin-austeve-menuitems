@@ -50,7 +50,7 @@ class AUSteve_MenuItems_CPT {
 			'description'         => __( 'Menu Items', 'austeve-menuitems' ),
 			'labels'              => $labels,
 			// Features this CPT supports in Post Editor
-			'supports'            => array( 'title', 'editor', 'author', 'revisions', ),
+			'supports'            => array( 'title', 'author', 'revisions', 'thumbnail'),
 			// You can associate this CPT with a taxonomy or custom taxonomy. 
 			'taxonomies'          => array( '' ),
 			/* A hierarchical CPT is like Pages and can have
@@ -66,7 +66,7 @@ class AUSteve_MenuItems_CPT {
 			'show_in_admin_bar'   => true,
 			'menu_position'       => 5,
 			'can_export'          => true,
-			'has_archive'         => true,
+			'has_archive'         => false,
 			'exclude_from_search' => false,
 			'publicly_queryable'  => true,
 			'capability_type'     => 'page',
@@ -111,7 +111,6 @@ class AUSteve_MenuItems_CPT {
     function redirect_singular_posts() {
       if ( is_singular('austeve-menuitems') ) {
       	$terms = wp_get_post_terms( get_the_ID(), 'menuitem-course' );
-      	error_log("Single menu item! ".print_r($terms, true));
 
       	if (isset($terms[0]))
       	{
@@ -124,18 +123,26 @@ class AUSteve_MenuItems_CPT {
 
         exit;
       }
+      else if ( is_post_type_archive('austeve-menuitems') ) 
+      {
+		wp_redirect( home_url('menuitem-course/main-course'), 302 );
+      }
     }
 
-    function always_get_all_menuitems($query) {
-    	//if querying a menu item course, get all menu items
-    	if (!is_admin() && $query->get('menuitem-course') != null)
-    	{
-    		$query->set('posts_per_page', -1);
-    		$query->set('orderby', 'title');//<-- Our custom ordering!
-    		$query->set('order', 'ASC');
-    	}
-    	return $query;
-    }
+	function always_get_all_menuitems($query) {
+		//if querying a menu item course, get all menu items
+		if (!is_admin() && $query->get('menuitem-course') != null)
+		{
+			$query->set('posts_per_page', -1);
+		}
+		//if querying menu items, order by the visual order defined by SCPOrder plugin
+		if (!is_admin() && is_array($query->get('post_type')) && in_array('austeve-menuitems', $query->get('post_type')))
+		{
+			$query->set('orderby', 'menu_order');
+			$query->set('order', 'ASC');
+		}
+		return $query;
+	}
 
 	function alter_admin_columns_head($defaults) {
 		$res = array_slice($defaults, 0, 2, true) +
