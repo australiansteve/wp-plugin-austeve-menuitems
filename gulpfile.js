@@ -14,7 +14,7 @@ gulp.task('deploy', function() {
 		'*.css',
 		'js/*.js'];
 
-	var destSSJ = '/Applications/MAMP/htdocs/ecb/wp-content/plugins/austeve-menuitems';
+	var destSSJ = '/Applications/MAMP/local.pram/wp-content/plugins/austeve-portfolio';
 
 	return gulp.src(files, {base:"."})
     		.pipe(gulp.dest(destSSJ));

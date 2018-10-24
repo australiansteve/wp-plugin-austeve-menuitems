@@ -2,8 +2,8 @@
   "devDependencies": {
     "gulp": "^3.8.11"
   },
-  "name": "austeve-menuitems",
-  "description": "AUSteve Menu Items",
+  "name": "austeve-portfolio",
+  "description": "AUSteve Portfolio",
   "version": "2.0.1",
   "main": "gulpfile.js",
   "dependencies": {
@@ -14,12 +14,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/australiansteve/wp-plugin-austeve-menuitems"
+    "url": "https://github.com/australiansteve/wp-plugin-austeve-portfolio"
   },
   "author": "AustralianSteve",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/australiansteve/wp-plugin-austeve-menuitems/issues"
+    "url": "https://github.com/australiansteve/wp-plugin-austeve-portfolio/issues"
   },
-  "homepage": "https://github.com/australiansteve/wp-plugin-austeve-menuitems"
+  "homepage": "https://github.com/australiansteve/wp-plugin-austeve-portfolio"
 }
